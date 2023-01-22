@@ -100,7 +100,7 @@ void setup() {
   lcd_display.init();
   // Initialise the DCC and RS-Bus part of the lift decoder. See above for details regarding addresses.
   // After cvValues.init() is called, CV default values may be modified using cvValues.defaults[...]
-  cvValues.init(LiftDecoder);            // software version may be added as 2nd parameter. Default: 10
+  cvValues.init(LiftDecoder,11);          // software version may be added as 2nd parameter. Default: 10
   decoderHardware.init();
   // We use 11 switch addresses, one per level. Therefore we need 3 decoder addresses
   firstDecoderAddress = cvValues.storedAddress();

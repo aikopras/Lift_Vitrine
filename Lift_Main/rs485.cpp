@@ -79,6 +79,7 @@ void talk_to_controllers::talk485() {
     };
   };
   // Part 3: check the IR-Board keep-alive timer
+  // The purpose is to detect if the connection with the IR-Board got lost
   if (timer_1000ms.expired()) {
     if (cvValues.read(IR_Detect)) {
       digitalWrite(LED_GREEN, LOW);  // Turn the local green LED off
@@ -102,7 +103,9 @@ void ir_controller::analyse_irled_response() {
     sensorIsFree = true;
     sensorStateChanged = true;
   };
-  if (myRS485.command == IR_BUSY) {
+  // Changed 2023/01/22
+  // if (myRS485.command == IR_BUSY) {
+  if ((myRS485.command == IR_BUSY) && (sensorIsFree)) {
     digitalWrite(LED_GREEN, LOW);  // Turn the local green LED off
     sensorIsFree = false;
     sensorStateChanged = true;
