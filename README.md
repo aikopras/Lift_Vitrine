@@ -43,7 +43,7 @@ The software has been optimised for the boards shown above. These boards can be 
 
 ## Dependancies on other board definitions and libraries ##
 The software for the lift decoders rely on some additional boards and libraries.
-- The [MegaCore board definition](https://github.com/MCUdude/MegaCore): Arduino pin definitions, as provided by the MegaCore board, are used in the file [LiftMain/hardware.h](LiftMain/hardware.h). These pin definitions are used, amongst others, for the coloured LEDs as can be found on the specific Lift decoder hardware board. These definitions may be easy to modify, however.
+- The [MegaCore board definition](https://github.com/MCUdude/MegaCore): Arduino pin definitions, as provided by the MegaCore board, are used in the file [LiftMain/hardware.h](Lift_Main/hardware.h). These pin definitions are used, amongst others, for the coloured LEDs as can be found on the specific Lift decoder hardware board. These definitions may be easy to modify, however.
 - The [AP_DCC_Decoder_Core library](https://github.com/aikopras/AP_DCC_Decoder_Core), which includes DCC packet decoding functions and access to the RS-Bus for feedback messages.
 - The [AP_RS485_Lift](https://github.com/aikopras/AP_RS485_for_Lift_decoders), which provides the shared RS485 code that the various Lift decoders use.
 - The [MoToTimer library](https://github.com/MicroBahner/MobaTools), which is part of the MoBaTools library.
