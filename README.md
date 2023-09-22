@@ -34,7 +34,9 @@ Depending on the number of buttons and levels, it might be possible to replace t
 
 
 ## Hardware, using dedicated Lift decoder boards ##
-Although my original plan was to use the hardware as described above, my plans changed after I discovered how cheap it was to order assembled boards in China; for five boards I paid (in 2019) 75 Euro in total. Due to current (=2022) chip shortages (especially the 328 and 2560 processors), current costs are much higher, however. Hopefully prices go back to normal somewhere in 2023 or 2024.
+Although my original plan was to use the hardware as described above, my plans changed after I discovered how cheap it was to order assembled boards in China; for five boards I paid (in 2019) 75 Euro in total. Recently, component prices went up dramatically and now, september 2023, the costst for these five boards are something between 125 and 150 Euro. Especially the 2560 processor is, with 12$, still quite expensive. Companies like Mouser offer them for roughly 1/2 of the price, however, so lowering the costs might be possible using JLCPCB's option to use Global Sourced Parts. An alternative might be to replace the ATMega 2560 with one of the newer Mocrochip AVRs, such as an DxCore processor. In my new designs I use AVR32DA48 processors, which costs (again using Global Sourced Parts) around 2,5$. That would require a board and software redesign, however.
+
+In September 2023 I noticed that the MP1584 Step-Down Converter is no longer recommended for new designs, and should be replaced by another component. That should be relatively simple; on my newer boards I'm already using the TPS54331DR.
 
 The software has been optimised for the boards shown above. These boards can be copied from the [oshwlab](https://oshwlab.com/aikopras/support-lift-controller) and modified where needed. Board production and component assembly has been done by JLCPCB. For mounting the TMC 2209 stepper drivers, an [additional PCB](https://oshwlab.com/aikopras/tmc2209-driver-board) has been developed. The Hall sensor,  IR-LED and sensor boards are standard boards that can easily be bought online.
 ![Hardware-EasyEda](Hardware_Easyeda.png)
