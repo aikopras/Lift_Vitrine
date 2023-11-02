@@ -5,6 +5,7 @@
 // To check to stepper driver and motor
 // 
 // The USB-UART converter (monitor) is connected to serial 0, baudrate should be 115200
+// Note that not all USB to Serial connectors are reliable.
 // The MEGA328 runnung GRBL is connected to serial 2, baudrate is also 115200
 //
 // Type on the Arduino serial monitor program the following commands:
@@ -13,7 +14,7 @@
 // - x20 = Move X stepper to 20
 // - x0  = Move X stepper back to 0
 //
-// 2020/08/03 AP - 2023/11/01 AP
+// 2020/08/03 AP
 //
 //******************************************************************************************************
 #include "Arduino.h"
