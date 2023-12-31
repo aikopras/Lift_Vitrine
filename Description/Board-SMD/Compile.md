@@ -6,4 +6,4 @@ Upload the sketch (**Upload** button or **Sketch => Using Programmer**).
 
 
 ### MegaCore ###
-If the Fuses have not yet been set or the MegaCore board  installed, see the instructions [here](/02-MegaCore-Compilation/Step02-02-MegaCore-Compilation.md)
+If the Fuses have not yet been set or the MegaCore board  installed, see the instructions [here](./02-MegaCore-Compilation/Step02-02-MegaCore-Compilation.md)
