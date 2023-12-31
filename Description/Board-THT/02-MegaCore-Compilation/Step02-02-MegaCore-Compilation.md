@@ -1,4 +1,4 @@
-## Install and test the MegaCore board
+## MegaCore - Compile and upload ##
 
 The goal of this step is to install the MegaCore board in the Arduino IDE (*this description uses Version 1.8.19 of the IDE, but Version 2 is similar*).
 
@@ -13,7 +13,11 @@ In the window that opens, type **Megacore**. <center><img src="Figures/ScreenSho
 **Note:** Be sure to install V3.0.1 or higher (V3.0.0 of the MegaCore board lacked support for the original Arduino Mega bootloader).
 
 ### Blink sketch ###
-To test if everything is working, connect a USB cable to the Arduino Mega boards <center><img src="Figures/Arduino-Mega-Board.jpeg"></center>
+Next we will check if everything is working, by installing the blink test sketch. Therefore open the Blink sketch (File => Examples => 01.Basics). The end result should be a blinking LED.
 
-Now open the Blink sketch (File/Examples/01.Basics) and upload the sketch. Make sure you select the MegaCore board, the ATmega 2560 processor and as Programmer the "Legacy Arduino MEGA bootloader". See below for the other settings. After upload the result should be a blinking LED.
+Connect a USB cable to the Arduino Mega boards <center><img src="Figures/Arduino-Mega-Board.jpeg"></center>
+
+
+### Compile and upload sketch ###
+To compile and upload a sketch, select the MegaCore board, the ATmega 2560 processor and as Programmer the "Legacy Arduino MEGA bootloader". See below for the other settings. Upload the sketch (**Upload** button).
 <center><img src="Figures/ScreenShot-CompileOptions.png"></center>

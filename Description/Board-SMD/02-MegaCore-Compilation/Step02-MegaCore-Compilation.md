@@ -1,4 +1,4 @@
-## Install and test the MegaCore board
+## MegaCore - Compile and upload ##
 
 The goal of this step is to install the MegaCore board in the Arduino IDE (*this description uses Version 1.8.19 of the IDE, but Version 2 is similar*).
 
@@ -12,7 +12,7 @@ In the window that opens, type **Megacore**. <center><img src="Figures/ScreenSho
 
 
 ### Blink sketch ###
-Next we will check if everything is working, by installing the blink test sketch.
+Next we will check if everything is working, by installing the blink test sketch. Therefore open the Blink sketch (File => Examples => 01.Basics). The end result should be a blinking LED.
 
 Although the board makes UART0 available as monitoring port, which can be connected to a development system via a serial to usb adapter, in general we won't be able to use such adapter to upload new code. The main reason is that bootloaders require a RESET before they start uploading new code. For this to happen the DTR signal of a serial adapter should be connected to the board's reset pin. Most adapters don't export such DTR signal, however.
 
@@ -28,5 +28,6 @@ Before we can upload any sketch, we need to initialize the fuse bits. This can b
 
 Alternatively we may also use the development system's command line to issue the following command (assuming usbasp): **avrdude -c usbasp -p m2560 -U lfuse:w:0xEE:m -U hfuse:w:0xD9:m -U efuse:w:0xFE:m**.
 
-Now we can open the Blink sketch (File/Examples/01.Basics) and upload the sketch. Make sure you select the MegaCore board, the ATmega 2560 processor and "no bootloader". See below for the other settings. After upload the result should be a blinking LED.
+### Compile and upload sketch ###
+To compile and upload a sketch, select the MegaCore board, the ATmega 2560 processor, MEGA pinout, and "no bootloader"; for the other settings see below. Select the programmer you have. Upload the sketch (**Upload** button or **Sketch => Using Programmer**).
 <center><img src="Figures/ScreenShot-CompileOptions.png"></center>
