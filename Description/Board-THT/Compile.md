@@ -6,4 +6,4 @@ Upload the sketch (**Upload** button).
 
 
 ### MegaCore ###
-If the MegaCore board has not yet been installed, see the instructions [here](/02-MegaCore-Compilation/Step02-MegaCore-Compilation.md)
+If the MegaCore board has not yet been installed, see the instructions [here](./02-MegaCore-Compilation/Step02-MegaCore-Compilation.md)
