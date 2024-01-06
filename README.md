@@ -30,7 +30,7 @@ The purpose of the IR-sensor controller is to drive a number or IR-LEDs and sens
 
 Depending on the number of buttons and levels, it might be possible to replace the boards for the Button and IR-sensor controllers by an Arduino UNO. The Main controller must be an Mega 2560, however, since that board should support multiple serial interfaces.
 
-![Hardware-Arduino](Hardware_Arduino.png)
+![Hardware-Arduino](Pictures/Hardware_Arduino.png)
 
 
 ## Hardware, using dedicated Lift decoder boards ##
@@ -39,7 +39,7 @@ Although my original plan was to use the hardware as described above, my plans c
 In September 2023 I noticed that the MP1584 Step-Down Converter is no longer recommended for new designs, and should be replaced by another component. That should be relatively simple; on my newer boards I'm already using the TPS54331DR.
 
 The software has been optimised for the boards shown above. These boards can be copied from the [oshwlab](https://oshwlab.com/aikopras/support-lift-controller) and modified where needed. Board production and component assembly has been done by JLCPCB. For mounting the TMC 2209 stepper drivers, an [additional PCB](https://oshwlab.com/aikopras/tmc2209-driver-board) has been developed. The Hall sensor,  IR-LED and sensor boards are standard boards that can easily be bought online.
-![Hardware-EasyEda](Hardware_Easyeda.png)
+![Hardware-EasyEda](Pictures/Hardware_Easyeda.png)
 
 ## Dependancies on other board definitions and libraries ##
 The software for the lift decoders rely on some additional boards and libraries.
