@@ -1,7 +1,7 @@
 # <a name="Loklift decoders"></a>Software for the Loklift decoders #
 
 This is the software for the three (ATMega 2560) decoders that control the lift for model trains. The photo below shows the lift at the right, and the display case (vitrine) at the left. On [YouTube](https://youtube.com/playlist?list=PLT8t59Iv1uii5TKU-r4GmLXoBTifbTNtb) there are a couple of videos that show the lift in motion.
-![Photo lift](Lift.jpeg)
+![Photo lift](Pictures/Lift.jpeg)
 
 ## Overall structure ##
 The software consists of three parts:
