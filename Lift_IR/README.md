@@ -6,8 +6,8 @@ The software has been tested on the following lift decoder boards:
   - THT board: https://oshwlab.com/aikopras/lift-decoder-arduino-mega-tht
 
 Instructions for compiling can be found on:
-  - SMD board: https://github.com/aikopras/Lift_Vitrine/blob/main/Description/Board-SMD/Compile.md
-  - THT board: https://github.com/aikopras/Lift_Vitrine/blob/main/Description/Board-THT/Compile.md
+  - SMD board: https://github.com/aikopras/Lift_Vitrine/blob/main/extras/Board-SMD/Compile.md
+  - THT board: https://github.com/aikopras/Lift_Vitrine/blob/main/extras/Board-THT/Compile.md
 
 ### LEDs ###
 **Blue LED:** The blue LED blinks whenever a RS485 request message is received. The main Lift controller polls the IR-controller every 100ms for the status of all IR sensors. In normal operation the blue LED should therefore blink 10 times per second.

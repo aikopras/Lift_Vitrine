@@ -13,8 +13,8 @@
 // - THT board: https://oshwlab.com/aikopras/lift-decoder-arduino-mega-tht
 //
 // Instructions for compiling, see
-// - SMD board: https://github.com/aikopras/Lift_Vitrine/blob/main/Description/Board-SMD/Compile.md
-// - THT board: https://github.com/aikopras/Lift_Vitrine/blob/main/Description/Board-THT/Compile.md
+// - SMD board: https://github.com/aikopras/Lift_Vitrine/blob/main/extras/Board-SMD/Compile.md
+// - THT board: https://github.com/aikopras/Lift_Vitrine/blob/main/extras/Board-THT/Compile.md
 //
 // LEDs:
 // - Blue:Indicates reception of RS485 message from the main decoder board  Should blinks 10x per second.
