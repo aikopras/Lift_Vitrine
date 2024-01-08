@@ -1,0 +1,102 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue255;\red251\green2\blue7;\red0\green0\blue0;
+}
+{\*\expandedcolortbl;;\cssrgb\c1680\c19835\c100000;\cssrgb\c100000\c14913\c0;\cssrgb\c0\c0\c0;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh25120\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 For testing purposes, below some GRBL input (in red) and the corresponding output.\
+A detailed description is provided at: https://github.com/gnea/grbl/wiki/Grbl-v1.1-Interface\
+\cf3 \
+\
+?\
+\cf0 <Idle|MPos:0.000,0.000,0.000|FS:0,0|Ov:100,100,100>\
+ok\
+\
+\cf3 X100\cf0 \
+ok\
+\cf3 ?\cf0 \
+<Run|MPos:88.028,0.000,0.000|FS:903,0>\
+ok\
+\cf3 ?\
+\cf0 <Idle|MPos:100.000,0.000,0.000|FS:0,0>\
+ok\
+\
+\cf3 G90 X300\
+\cf0 ok\
+\cf3 ?\
+\cf0 <Run|MPos:283.913,0.000,0.000|FS:1047,0>\
+ok\
+\cf3 ?\
+\cf0 <Idle|MPos:300.000,0.000,0.000|FS:0,0>\
+ok\
+\
+\cf3 XYZA\
+\cf0 error:2\
+\
+\cf3 $H (without limit switches configured)\
+\cf0 ALARM:8\
+ok\
+\
+Grbl 1.1h ['$' for help]\
+[MSG:'$H'|'$X' to unlock]\
+\
+\cf3 $X\
+\cf0 [MSG:Caution: Unlocked]\
+ok\
+\
+\cf3 ? (After a failed Homing cyclus)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 <Idle|MPos:7.700,7.700,0.000|FS:0,0|WCO:0.000,0.000,0.000>\
+ok\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 G91 X250\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 ok\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 ?\cf4 \
+<Run|MPos:35.269,7.700,0.000|FS:1434,0|Ov:100,100,100>\
+ok\
+\cf3 ?\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 <Run|MPos:112.191,7.700,0.000|FS:2000,0>\
+ok\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 ?\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 <Run|MPos:193.713,7.700,0.000|FS:2000,0>\
+ok\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 ?\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 <Run|MPos:246.203,7.700,0.000|FS:884,0>\
+ok\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 ?\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 <Idle|MPos:257.700,7.700,0.000|FS:0,0>\
+ok\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 ?\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 <Idle|MPos:257.700,7.700,0.000|FS:0,0>\
+ok\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 G90 X100\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 ok\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 ?\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 <Run|MPos:110.163,7.700,0.000|FS:831,0>\
+ok\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 ?\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 <Idle|MPos:100.000,7.700,0.000|FS:0,0>\
+ok\
+}
