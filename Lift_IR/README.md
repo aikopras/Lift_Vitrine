@@ -49,11 +49,11 @@ As mentioned at the top of this page, the lift controller code has been tested o
 
 To use the SMD board, enable the associated `#define`.
 ```
-    #define BOARD SMD
+    #define BOARD_SMD
 ```
 For the THT board, enable the other `#define`:
 ```
-    #define BOARD THT
+    #define BOARD_THT
 ```
 ##### 2) Tell the sketch which I/O ports are used for the sensors #####
 The lift decoder boards have 14 general purpose in- and outputs. Therefore a maximum of 14 sensors (IR-LEDs and IR-Receivers) may be connected (the software would facilitate 16). To tell the software which inputs/outputs are wired, a bitmask `MASK_SENSORS_CONNECTED` is used. The lowest order (rightmost) bit in that mask corresponds to the IN/OUT pair of the blue connectors that are labelled 1. Below are some examples:
