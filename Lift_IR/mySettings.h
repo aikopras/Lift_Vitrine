@@ -17,8 +17,8 @@
 // - SMD board: https://oshwlab.com/aikopras/support-lift-controller
 // - THT board: https://oshwlab.com/aikopras/lift-decoder-arduino-mega-tht
 // Select the board that will be used. 
-#define BOARD SMD
-// #define BOARD THT
+#define BOARD_SMD
+// #define BOARD_THT
 
 
 // 2) Tell the sketch which I/O ports are used for sensors

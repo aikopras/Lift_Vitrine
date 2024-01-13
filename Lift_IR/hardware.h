@@ -20,14 +20,14 @@
 
 // Do not edit below this line
 // ---------------------------
-#if (BOARD == SMD) 
-#define LED_BLUE       PIN_PD4 
-#define LED_GREEN      PIN_PD5 
-#define LED_YELLOW     PIN_PD6 
-#elif (BOARD == THT)
-#define LED_BLUE       PIN_PE3 
-#define LED_GREEN      PIN_PG5 
-#define LED_YELLOW     PIN_PE5 
+#ifdef BOARD_SMD
+#define LED_BLUE       PIN_PD4
+#define LED_GREEN      PIN_PD5
+#define LED_YELLOW     PIN_PD6
+#elif defined(BOARD_THT)
+#define LED_BLUE       PIN_PE3
+#define LED_GREEN      PIN_PG5
+#define LED_YELLOW     PIN_PE5
 #else
 #warning BOARD NOT DEFINED!
 #endif
