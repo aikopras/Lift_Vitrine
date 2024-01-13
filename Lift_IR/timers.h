@@ -9,7 +9,7 @@
 //
 //
 //
-#include "config.h" 
+#include "mySettings.h" 
 
 
 

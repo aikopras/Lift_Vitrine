@@ -6,7 +6,7 @@
 // History:   2022/01/25 AP Version 1.0
 //            2024/01/06 AP Version 2.0 - Added RSBus feedback, debugging via the Serial interface and LEDs.
 //                                        Before compilation, make sure you've set the variables and #defines
-//                                        contained in the file config.h
+//                                        contained in the file mySettings
 // 
 // The code is has been tested on the following lift controller boards 
 // - SMD board: https://oshwlab.com/aikopras/support-lift-controller
@@ -30,7 +30,7 @@
 // ***********************************************************************************************************
 #include <AP_DCC_Decoder_Core.h>      // Library for a basic DCC accesory decoder with RS-Bus feedback
 #include <AP_RS485_Lift.h>            // Library to communicate with the main lift decoder
-#include "config.h" 
+#include "mySettings.h" 
 #include "hardware.h" 
 #include "IR-Sensor.h"
 

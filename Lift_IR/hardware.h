@@ -4,7 +4,8 @@
 // History:   2021/04/24 AP Version 1.0
 //            2023/11/13 AP Version 1.1 - Added #defines for the LEDs, to ease usage of a MEGA board 
 //            2023/30/12 AP Version 1.2 - Share same file between Main, Button and IR board
-//                                        Select between the THT and SMD board (see config.h)  
+//                                        Select between the THT and SMD board via compiler directive  
+//            2024/01/11 AP version 1.3 - definition of relay pins moved to mySettings.h
 // 
 // Purpose:   Pin definitions for the Lift decoder Main, Button and IR boards
 //
@@ -14,7 +15,7 @@
 //  
 // ******************************************************************************************************
 #pragma once
-#include "config.h" 
+#include "mySettings.h"           // Includes the choice which board is used (SMD or THT)
 
 
 // Do not edit below this line
@@ -48,12 +49,6 @@
 #define D6        9   // PH6 - Connector: Pin 4   / Mega Pin 9
 #define D7       10   // PB4 - Connector: Pin 5   / Mega Pin 10
 
-
-// Pins for external relays:
-#define RELAY1_POS1    63  // PIN_PK1 - Number on PCB: OUT 10
-#define RELAY1_POS2    64  // PIN_PK2 - Number on PCB: OUT 11 
-#define RELAY2_POS1    65  // PIN_PK3 - Number on PCB: OUT 12 
-#define RELAY2_POS2    66  // PIN_PK4 - Number on PCB: OUT 13 
 
 
 // ******************************************************************************************************

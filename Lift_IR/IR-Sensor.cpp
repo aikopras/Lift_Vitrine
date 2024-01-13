@@ -24,7 +24,7 @@
 //                                       Do not edit below this line
 // ***********************************************************************************************************
 #include <Arduino.h>
-#include "config.h" 
+#include "mySettings.h" 
 #include "IR-Sensor.h"
 #include "timers.h"
 
