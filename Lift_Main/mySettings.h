@@ -87,25 +87,24 @@ Purpose:   Allow users of this sketch to select the board (SMD or THT) and tailo
 // buttons (since the lift is operated via DCC only), you can enable FORCE_EEPROM_WRITE (see below).
 // After these values are stored in EEPROM, do NOT modify the values again!!
 // Values are in millimeter (point as decimal separator).
-/*
-#define LEVEL00      "0.000"
-#define LEVEL01     "10.000"
-#define LEVEL02     "20.000"
-#define LEVEL03     "30.000"
-#define LEVEL04     "40.000"
-#define LEVEL05     "50.000"
-#define LEVEL06     "60.000"
-#define LEVEL07     "70.000"
-#define LEVEL08     "80.000"
-#define LEVEL09     "90.000"
-#define LEVEL10    "100.000"
-#define LEVEL11    "110.000"
-*/
+#define LEVEL00       "0.000"
+#define LEVEL01     "100.000"
+#define LEVEL02     "200.000"
+#define LEVEL03     "300.000"
+#define LEVEL04     "400.000"
+#define LEVEL05     "500.000"
+#define LEVEL06     "600.000"
+#define LEVEL07     "700.000"
+#define LEVEL08     "800.000"
+#define LEVEL09     "900.000"
+#define LEVEL10    "1000.000"
+#define LEVEL11    "1100.000"
 
 // Set the #define below to 1, if the new values MUST be written to EEPROM. Don't forget to change it
 // back to 0 once the new settings are stored, to avoid EEPROM wear-out.
 #define FORCE_EEPROM_WRITE 0
 
+/*
 #define LEVEL00       "0.000"
 #define LEVEL01     "170.900"
 #define LEVEL02     "251.000"
@@ -118,3 +117,4 @@ Purpose:   Allow users of this sketch to select the board (SMD or THT) and tailo
 #define LEVEL09     "869.300"
 #define LEVEL10     "960.600"
 #define LEVEL11     "990.600"
+*/

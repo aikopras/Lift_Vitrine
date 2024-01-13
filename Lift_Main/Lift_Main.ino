@@ -53,10 +53,10 @@
 // Emergency Stop command (= Broadcast ResetCmd). In both cases the RESET button will quickly flash.
 // 1) BUTTON: The Button generates a soft_reset, which immediately halts the steppers and resets Grbl. 
 // If reset while in motion, Grbl will throw an Alarm to indicate position may be lost from the 
-// motion halt. The Alarm state is signalled via the RESET Button LED, which quickly flashes.
+// motion halt. The Alarm state is signaled via the RESET Button LED, which quickly flashes.
 // A second push of the RESET button is needed to leave the Alarm state. The lift stays at an 
 // undefined position.
-// 2) DCC Emergency Stop command: generates a GRBL feedhold, 
+// 2) DCC Emergency Stop command: generates a GRBL feedhold.
 //
 // Onboard LEDS:
 // ============
@@ -74,7 +74,7 @@
 // ========
 // Feedback is provided regarding the lift's position and status. There are three status bits:
 // - The IR-sensors are free (provided IR-sensors are active)
-// - The Lift has arrived / is at level x. There is no mevement and the stepper motors are idle
+// - The Lift has arrived / is at level x. There is no movement and the stepper motors are idle
 // - The lift is ready. 
 //   If the IR-Sensors are active, this bit is the same as 'IR-sensors are free' AND 'Lift is at level x'.
 //   If the IR-Sensors are inactive, this bit is the same as 'Lift is at level x'.
@@ -88,7 +88,7 @@
 //   - Base address + 1: Lift is at level x        (high nibble          Bit 5)
 //   - Base address + 1: Lift Ready                (high nibble          Bit 7)
 // 2) Using the connectors on the Main Lift Board connectors (added in V2.0).
-// It's purpose is to facilitate the use of alternative feedback systems (such as S88). 
+// Its purpose is to facilitate the use of alternative feedback systems (such as S88). 
 //   - The connectors labelled "IN 1..12" are used to tell which level the lift currently is.
 //     The connector labelled "1" is for level "0", etc. 
 //   - The connector labelled "IN 13" is used to tell that IR-sensors are free.
