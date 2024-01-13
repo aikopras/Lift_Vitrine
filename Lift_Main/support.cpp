@@ -12,7 +12,7 @@ Purpose:   All support functions and objects are here
 #include "hardware.h"
 #include "rs485.h"            // Needed to get direct access to the buttons
 #include "stepper.h"          // Needed to get direct access to the stepper state and lift position
-#include "dcc_rs.h"           // Needed to get access to the CV values
+#include "feedback.h"         // Needed to get access to the CV values
 #include <hd44780.h>          // The default Arduino LCD Library is too slow
 #include <hd44780ioClass/hd44780_pinIO.h>
 #include "support.h"
@@ -31,9 +31,9 @@ led_class::led_class() {
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, LOW);               // Standard decoder programming and RS-Bus feedback
   pinMode(LED_BLUE, OUTPUT);
-  digitalWrite(LED_BLUE, LOW);                  // RS-485
+  digitalWrite(LED_BLUE, LOW);                  // Lights if the steppers are busy
   pinMode(LED_GREEN, OUTPUT);
-  digitalWrite(LED_GREEN, HIGH);                // Power on
+  digitalWrite(LED_GREEN, HIGH);                // Power connected / IR sensors are free (or disabled)
   pinMode(LED_YELLOW, OUTPUT);
   digitalWrite(LED_YELLOW, LOW);                // Mimics the remote LED button (without flashes)
 }

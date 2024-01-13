@@ -17,21 +17,24 @@ Purpose:   Implements the communication with the GRBL (stepper motor) controller
 /*****************************************************************************************************/
 // The lift class keeps track of the current position (in mm) of the lift, what positions it can
 // move to, and offers a command to perform the actual move.
-// The lift has 10 levels (1..10) to store trains, plus an additional level (0) for arriving and 
-// departing trains. The precise position (in mm) for each lift level is stored in a two-dimensional 
-// array, called "positions".
+// A lift decoder board has 14 outputs, meaning that, in theory, we may support upto 14 lift levels.
+// However; the feedback messages that indicate which level the lift currently is, have "only" 12 bits
+// available for this. Therefore we "limit" the lift to 12 levels.
+// Level 0 is used for arriving and departing trains. The levels 1..11 can be used to store trains. 
+// The precise position (in mm) for each lift level is stored in a two-dimensional array,
+// called "positions".
 // The GRBL commands needed for moves look like: G90 X123.456 Y123.456.
 // The numbers 123.456 are the lift position im mm., and can be stored as char arrays with a size
 // defined by NUMBER_LENGHT. Since the lift can move 1000mm, numbers may be up to 4 digits before 
 // the decimal separator (.), and 3 digits behind.
 // The size is therefore 7 digits, a decimal separator (.) and a closing '\0' termination character.
-#define MAX_LEVEL      10                // The highest level the lift can move to
+#define MAX_LEVEL      12                // The number of levels the lift can move to
 #define NUMBER_LENGHT  10                // Each lift positions is stored as char array with this size
 
 class lift_class {
   public: 
     // Attributes:   
-    char positions[MAX_LEVEL + 1][NUMBER_LENGHT];  // We need an extra level for the 0-level
+    char positions[MAX_LEVEL][NUMBER_LENGHT];      // We start at the 0-level
     char currentPosition[NUMBER_LENGHT];           // Holds the current lift position
     uint8_t level;                                 // The level where the lift is / should move to
 
@@ -42,7 +45,7 @@ class lift_class {
 
   private:
     uint16_t EpromStart;                           // Start address in EEPROM
-    uint16_t EpromLevel[MAX_LEVEL + 1];            // Start address for each level   
+    uint16_t EpromLevel[MAX_LEVEL];                // Start address for each level   
 };
 
 

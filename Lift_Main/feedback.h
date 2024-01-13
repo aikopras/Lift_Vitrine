@@ -1,18 +1,13 @@
 /*******************************************************************************************************
-File:      dcc_rs.h
+File:      feedback.h
 Author:    Aiko Pras
 History:   2022/01/05 AP Version 1.0
+           2024/01/11 AP Version 2.0 - Feedback via blue board connectors added
 
 
-Purpose:   Implements the DCC and RS-Bus interface
-           All DCC and RS-Bus pins are defined and initialised in the AP_DCC_Decoder_Basic library
-
-RS-Bus:
-- Base address    : Level 0..7                (low and high nibble. Bit 0..7)
-- Base address + 1: Level 8..10               (low nibble.          Bit 0..2)
-- Base address + 1: Lift OK: IDLE at level x  (high nibble          Bit 7)
-- Base address + 1: IR blocked                (high nibble          Bit 6)
-- Base address + 1: Emergency stop            (high nibble          Bit 5)
+Purpose:   Implements RS-Bus interface
+           The RS-Bus hardware is defined and initialised in the AP_DCC_Decoder_Basic library
+           The main Lift sketch the meaning and location of the various feedback bits.
 
 ******************************************************************************************************/
 #pragma once
@@ -26,7 +21,7 @@ RS-Bus:
 
 //******************************************** RS-BUS CONTROLLER **************************************
 // The RS-BUS controller sets the appropriate feedback bits of the two RS-Bus channels being used. 
-class rsbusController {
+class feedbackController {
   public:
     void init(uint8_t address);       // Sets the two RS-Bus addresses
     void sendMainNibble();            // Send the bits for IR free, stepper idle and lift ready
@@ -38,10 +33,10 @@ class rsbusController {
 };
 
 //*****************************************************************************************************
-// Definition of external objects, which are declared in dcc_rs.cpp but used by main 
-extern rsbusController   rsbus;
+// Definition of external objects, which are declared in feedback.cpp but used by main 
+extern feedbackController   feedback;
 
 extern RSbusConnection rsbus1;                // RS-Bus object for level 0..7
 extern RSbusConnection rsbus2;                // RS-Bus object for level 8..10, plus ready, moving etc.
-extern uint8_t feedbackData1;                 // The feedback data for the first rsbus object (rsbus1)
-extern uint8_t feedbackData2;                 // The feedback data for the second rsbus object (rsbus2)
+extern uint8_t feedbackData1;                 // feedback data for rsbus1 / IN 1..8
+extern uint8_t feedbackData2;                 // feedback data for rsbus2 / IN 9..14 / OUT 1..3

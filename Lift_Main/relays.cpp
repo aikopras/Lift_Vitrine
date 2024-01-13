@@ -2,14 +2,14 @@
 File:      relays.cpp
 Author:    Aiko Pras
 History:   2022/05/22 AP Version 1.0
-
+           2024/01/11 AP version 1.1: relay pins are defined in mySettings
 
 Purpose:   Implements the objects to control external relaays
 
 ******************************************************************************************************/
 #include <Arduino.h>
 #include "relays.h"
-#include "hardware.h"                // Pins to which the relays should be connecteed to
+#include "mySettings.h"
 
 #define HOLD_TIME 3                  // 3 * 20ms = 60ms
 

@@ -3,6 +3,8 @@
 // Author:    Aiko Pras
 // History:   2021/04/24 AP Version 1.0: RS485 and stepper part ready
 //            2022/01/04 AP Version 1.1: DCC part added
+//            2024/01/10 AP Version 1.2: mySettings.h added, to ease user customization
+//            2024/01/12 AP Version 2.0: Feedback is also provided via the onboard connectors
 //
 //
 // Buttons:
@@ -11,42 +13,39 @@
 // - Short press of one of the 0..10 buttons: Lift starts moving to level 0..10
 // - Short press of the RESET button: a homing cycle will be initiated
 // - Press of ^ or v buttons: Lift moves in small steps up or down (jogging)
-// - Long  press of one of the 0..10 buttons: position will be stored as new position for that level
+// - Long press of one of the 0..10 buttons: position will be stored as new position for that level
 //
-// While the lift moves the associated button Led will slowly flash. 
-// While moving, all RS-Bus bits will be cleared.
-// After the move is complete, the Led will shortly light and subsequently dimm. 
-// The corresponding RS-Bus level bit bit will be set, as well as the STEPPER_IDLE bit.
-// If a new position is being stored, the LED will flash quickly
+// While the lift moves, the associated button Led will slowly flash. 
+// After the move is complete, the button Led will shortly light and subsequently dimm.
+// If a new position is being stored, the button LED will flash quickly
 //
 // If the lift is moving, we keep polling the button controller, but ignore all buttons except the RESET.
 // If the RESET is pushed (short press), the lift will immediately be stopped (see emergence stop below).
 //
-// DCC and RS-Bus addresses
-// ========================
-// The DCC and RS-Bus address can be set using the onboard button, like all other decoder boards.
-// Before doing so, it is important to understand some details.
-// 1) The Lenz system allows RS-Bus feedback for switch addresses <= 256, thus for decoder / RS-Bus 
-// addresses <= 64. Lenz reserves the RS-Bus addresses between 65 and 128 for feedback decoders.
-// Although my libraries are able to use the entire RS-Bus address range for switches, limitations of
-// the RS-Bus address space prevent RS-Bus feedback for addresses > 128 (switch addresses > 512).
-// Without the special measures taken in this sketch, this would prevent the use of lift addreses > 512.
-// 2) A lift decoder is not the same as a normal switch decoder. 
-// Although this sketch uses 11 switch addresses to select the level (0..10) the lift should move to,
-// usage of the RS-Bus feedback messages is slightly different compared to normal switches.
-// To inform the traincontroller software at which level the lift currently is (0..10), 11 feedback
-// bits are used. However, additional feedback bits are needed to signal that the stepper motors are IDLE
-// (the lift has arrived at the requested level) and that no obstacles are detected by the IR system. 
-// 3) Since the standard relation that exists for normal switches between the switch and RS-Bus
-// address does not hold for a lift decoder, the best approach seems to use switch addresses > 512
-// and reserve / "hard-code" the RS-Bus addresses 126 and 127 (RS-Bus 128 is already taken for PoM).
-// 4) For the lift we need 11 switch addresses, thus 3 switch decoder addresses.
-// In addition, we need 2 RS-Bus addresses.
-// 5) This sketch uses the following logic to determine the switch and RS-Bus addresses.
-// - If  (after pressing the onboard button) an switch address is selected <= 504, decoder and RS-Bus
-// addresses will be calculated as normal. In that case all RS-Bus addresses will be <= 127.  
-// - If  (after pressing the onboard button) an switch address is selected > 504, the decoder address
-// will be calculated as normal, but the RS-Bus address will be "hard-wired" to addresses 126 and 127.
+// DCC address
+// ===========
+// The common approach for all my DCC decoder boards, is to compile the DCC address with an
+// "illegal" value. This triggers the board to notify the user, via blinking of the red LED, that
+// a DCC address needs to be entered. Like all other decoder boards, this DCC address can be set using
+// the onboard programming button. This new address is permanently stored (in EEPROM), and the next time
+// the decoder starts, the valid DCC address is read from EEPROM and the red LED no longer blinks.
+// You might prefer to set the DCC address already at compile time, however. This can be done by  
+// changing the CV1 and CV9 settings in the file mySettings.h 
+//
+// RS-Bus address
+// ==============
+// The onboard programming button is not only used to set the DCC address, but indirectly also the 
+// RS-Bus address. If you select a decoder address < 128 (thus a switch addresses <509), the RS-Bus
+// address becomes equal to the decoder address (+1). If you select a decoder address >=128, the 
+// RS-Bus address becomes 0, meaning "not used". 
+// Via the onboard programming button it is therefore not possible to use decoder addresses >=128, 
+// in combination with RS-Bus feedback.
+// Fortunately, we can still use DCC decoder addresses >=128, in combination with RS-Bus feedback, 
+// provided we select these addresses before compilation, in the file mySettings.h.
+// We use 12 feedback bits to inform traincontroller (or whatever software we have) at which level
+// the lift currently is (0..11). Additional feedback bits are used to signal that the stepper 
+// motors are IDLE (the lift has arrived at the requested level) and that no obstacles are detected
+// by the IR system. We therefore use 2 RS-Bus addresses. 
 //
 // Emergency stop
 // ==============
@@ -58,34 +57,96 @@
 // A second push of the RESET button is needed to leave the Alarm state. The lift stays at an 
 // undefined position.
 // 2) DCC Emergency Stop command: generates a GRBL feedhold, 
-
-
+//
 // Onboard LEDS:
 // ============
-// LED_GREEN: Power connected / IR sensors are free (if CV enabled)
+// LED_GREEN: Power connected / IR sensors are free (or disabled)
 // LED_BLUE: Lights if the steppers are busy
-// LED_YELLOW: Mimics the LEDs on the remote panel (without flashing)
+// LED_YELLOW: Mimics the LEDs on the remote button panel (without flashing)
 // LED_RED: The standard programming and RS-Bus Feedback LED
 //
-// The code is developed for Arduino 2560 microcontrollers and has been tested on the dedicated 
-// lift controller board: https://easyeda.com/aikopras/support-lift-controller
-// See "hardware.h" for details regarding this board, as well as compile and flash settings
+// Adjusting behaviour
+// ===================
+// Some aspects of the lift decoder's behaviour can be modified by the user of this software.
+// See the file mySettings.h for details
+//
+// Feedback
+// ========
+// Feedback is provided regarding the lift's position and status. There are three status bits:
+// - The IR-sensors are free (provided IR-sensors are active)
+// - The Lift has arrived / is at level x. There is no mevement and the stepper motors are idle
+// - The lift is ready. 
+//   If the IR-Sensors are active, this bit is the same as 'IR-sensors are free' AND 'Lift is at level x'.
+//   If the IR-Sensors are inactive, this bit is the same as 'Lift is at level x'.
+//   Analysing this single bit may, in Train Control software, be easier than two bits.
+// During movement of the lift, all feedback bits are cleared.
+// Feedback is provided in two ways.
+// 1) Using the RS-Bus. We use two addresses; the meaning of the individual bits, is as follows:
+//   - Base address    : Level 0..7                (low and high nibble. Bit 0..7)
+//   - Base address + 1: Level 8..11               (low nibble.          Bit 0..3)
+//   - Base address + 1: IR-sensors are free       (high nibble          Bit 4)
+//   - Base address + 1: Lift is at level x        (high nibble          Bit 5)
+//   - Base address + 1: Lift Ready                (high nibble          Bit 7)
+// 2) Using the connectors on the Main Lift Board connectors (added in V2.0).
+// It's purpose is to facilitate the use of alternative feedback systems (such as S88). 
+//   - The connectors labelled "IN 1..12" are used to tell which level the lift currently is.
+//     The connector labelled "1" is for level "0", etc. 
+//   - The connector labelled "IN 13" is used to tell that IR-sensors are free.
+//   - The connector labelled "IN 14" is used to tell that lift has arrived / is at level x.
+//   - The pin labelled "OUT 1" is to tell that the lift is ready. 
+// Note that the IN connectors are directly connected to pins on the ATMega 2560 processor,
+// (accidental) shortcut of these pins will destroy the processor. 
+// Therefore ensure you always use resistors with a value of 1 kOhm or higher.
+//
+// Relays
+// ======
+// As an extra safety measure, it is possible to connect two bi-stable relays to the lift decoder.
+// This allows the power of the lift tracks, or the track towards the lift, to be switched off.
+// In case the lift is IDLE and at level 0, both relays are swiched to "position 1".
+// In all other cases both relays will be swiched to "position 2".
+//
 //
 //*****************************************************************************************************
 #include <LiquidCrystal.h>        // Allow LCD output of the current state and position
+#include "mySettings.h"           // Allows user of this sketch to tailor the behaviour 
 #include "hardware.h"             // Pins for LEDs, DCC input, RS-Bus output etc.
 #include "support.h"              // For the LCD Display and some on-board LEDs
-#include "rs485.h"                // Use RS485 to read button status and set button LEDs
+#include "rs485.h"                // Use RS485 to read IR-sensors. button status, set button LEDs 
 #include "stepper.h"              // Communication with the stepper motor controller (GRBL)
-#include "dcc_rs.h"               // DCC and RS-Bus specific code
+#include "feedback.h"             // Feedback (RS-Bus) specific code
 #include "relays.h"               // For connecting two external relays 
-
-unsigned int firstDecoderAddress;
 
 
 //*****************************************************************************************************
 // SETUP
 //*****************************************************************************************************
+unsigned int firstDecoderAddress;
+
+void mySettings() {
+  #if defined(NO_HOMING) 
+    cvValues.write(StartHoming, 0);              // CV-defaults = 1
+  #endif
+  #if defined(NO_IR_SENSORS) 
+    cvValues.write(IR_Detect, 0);                // CV-defaults = 1
+  #endif
+  #if defined(ENABLE_LCD)            
+    cvValues.write(LCD_Display, 1);              // CV-defaults = 1
+  #endif
+  #if defined(SERIAL_MONITOR)
+    cvValues.write(Serial_Line, SERIAL_MONITOR); // Default value = 0
+  #endif
+  #if defined(CV1)
+    cvValues.write(myAddrL, CV1);                // Default value = 0x01
+  #endif
+  #if defined(CV9)
+    cvValues.write(myAddrH, CV9);                // Default value = 0x80
+  #endif
+  #if defined(RS_ADDRESS)
+    cvValues.write(myRSAddr, RS_ADDRESS);        // Default value = 0
+  #endif
+}
+
+
 void setup() {
   // The monitor is connected via Serial (UART0) and the GRBL controller via Serial2 (UART2)
   // The Serial_Line CV disables (value = 0) or enables the Serial interface.
@@ -100,21 +161,42 @@ void setup() {
   lcd_display.init();
   // Initialise the DCC and RS-Bus part of the lift decoder. See above for details regarding addresses.
   // After cvValues.init() is called, CV default values may be modified using cvValues.defaults[...]
-  cvValues.init(LiftDecoder,11);          // software version may be added as 2nd parameter. Default: 10
-  decoderHardware.init();
-  // We use 11 switch addresses, one per level. Therefore we need 3 decoder addresses
+  cvValues.init(LiftDecoder,12);          // software version may be added as 2nd parameter. Default: 10  
+  mySettings();                           // To override default settings with values from mySettings.h
+  decoderHardware.init();                 // Use the CV values stored in EEPROM
+  // The softare supports a maximum of 12 lift levels; each level has its own switch address.
+  // For 12 switch addresses, we need to listen to 3 decoder addresses
   firstDecoderAddress = cvValues.storedAddress();
   accCmd.setMyAddress(firstDecoderAddress, firstDecoderAddress + 2);
-  if (cvValues.storedAddress() < 126) rsbus.init(cvValues.read(myRSAddr));
-    else rsbus.init(126);
-  // At start-up the values for lift.level and lift.currentPosition are zero, 
-  // and the RS-Bus level bit and STEPPER_IDLE bit will be set and returned to the RS-Bus master.
+  // Initialise the feedback system. At start-up, the values for lift.level and lift.currentPosition 
+  // are zero. The level bit and STEPPER_IDLE bit will be set. The RS-Bus master will be informed.
+  feedback.init(cvValues.read(myRSAddr));
   // To ensure a consistent state, do a homing cycle first. Wait 1 sec to ensure GRBL is up and running
   delay(1000);
   if (cvValues.read(StartHoming)) reset_object.home(); 
-  /* Write a 1 to the LCD_Display CV to enable the LCD Display for debugging */
-  // cvValues.write(LCD_Display, 1);
+  // Display some settings
+  if (cvValues.read(Serial_Line)) {
+    #ifdef BOARD_SMD
+      Serial.println("SMD board"); 
+      #endif
+    #ifdef BOARD_THT
+      Serial.println("THT board"); 
+      #endif
+    Serial.print("myAddrL: "); 
+    Serial.println(cvValues.read(myAddrL)); 
+    Serial.print("myAddrH: "); 
+    Serial.println(cvValues.read(myAddrH)); 
+    Serial.print("First DCC decoder address:"); 
+    Serial.println(firstDecoderAddress);   
+    Serial.print("First RS-Bus address:"); 
+    Serial.println(cvValues.read(myRSAddr)); 
+    Serial.print("IR-sensors: ");
+    Serial.println(cvValues.read(IR_Detect));
+    Serial.println(); 
+  }
 }
+
+
 
 
 void serialMonitor() {
@@ -131,6 +213,8 @@ void serialMonitor() {
     }
   }
 }
+
+
 //*****************************************************************************************************
 // Main Loop
 //*****************************************************************************************************
@@ -174,16 +258,20 @@ void loop() {
       // performed a reset, both processors will be in different and thus inconsistent
       // states. If that happens, the user should perform a homing cycle (push RESET)
       if (strcmp(lift.currentPosition,lift.positions[lift.level]) == 0) {
-        rsbus.setLiftLevel(lift.level);
+        feedback.setLiftLevel(lift.level);
         relaysCntrl.lift_idle(lift.level);  // if at level 0, switch the relays to POS1
+        if (cvValues.read(Serial_Line)) {
+          Serial.print("Lift at level: ");
+          Serial.println(lift.currentPosition);
+        }
       }      
       else {
-        rsbus.clearFeedbackBits();          // to catch fast changes, such as step-up
+        feedback.clearFeedbackBits();       // to catch fast changes, such as step-up
         digitalWrite(LED_BLUE, HIGH);       // Indicate the steppers are busy 
       }
     }
     else {
-      rsbus.clearFeedbackBits();            // to catch normal changes
+      feedback.clearFeedbackBits();         // to catch normal changes
       digitalWrite(LED_BLUE, HIGH);         // Indicate the steppers are busy 
     }
   }
@@ -201,8 +289,8 @@ void loop() {
   // Step 4: If the IR-Sensor controller changes state, send feedback via the RS-Bus
   // sensorIsFree is a boolean variable, indicating if no IR-lightbeam is blocked
   if (ir_cntrl.stateChanged()) {
-    rsbus.irFree = ir_cntrl.sensorIsFree;
-    rsbus.sendMainNibble();
+    feedback.irFree = ir_cntrl.sensorIsFree;
+    feedback.sendMainNibble();
   }
   //
   //===================================================================================
@@ -261,7 +349,7 @@ void loop() {
    if (btn_cntrl.buttonAction == PRESSED) {
      switch (stepper.state) {
        case grbl::IDLE:
-         rsbus.clearFeedbackBits();         // We leave the IDLE state and the current level
+         feedback.clearFeedbackBits();      // We leave the IDLE state and the current level
          lift.level = 0;                    // This will become the new level
          btn_cntrl.prepare_LED(FLASH_SLOW, RESET_BUTTON);
          lcd_display.homing();
@@ -317,8 +405,10 @@ void loop() {
         if ((stepper.state == grbl::IDLE) && (accCmd.position == 1)) {
           lift.level = (accCmd.decoderAddress - firstDecoderAddress) * 4 + accCmd.turnout - 1;
           lift.move(lift.level);
-          if (cvValues.read(Serial_Line)) Serial.print("Move lift to level: ");
-          if (cvValues.read(Serial_Line)) Serial.println(lift.level);
+          if (cvValues.read(Serial_Line)) {
+            Serial.print("Move lift to level: ");
+            Serial.println(lift.level);
+          };
           lcd_display.show();
         }
       break;      
@@ -335,6 +425,6 @@ void loop() {
   // As frequent as possible we should call the RS-Bus address polling routine, check if the 
   // programming button is pushed, and if the status of the onboard LED should be changed.
   decoderHardware.update();
-  rsbus.update();
+  feedback.update();
   relaysCntrl.update();
 }

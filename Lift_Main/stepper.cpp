@@ -11,6 +11,7 @@ Purpose:   Implements the communication with the GRBL (stepper motor) controller
 #include <MoToTimer.h>               // For the MoToTimebase
 #include <AP_DCC_Decoder_Core.h>     // For the Serial_Line CV 
 #include "stepper.h"
+#include "mySettings.h"              // For the default lift positions
 
 
 // Instantiate the external objects. 
@@ -27,32 +28,33 @@ lift_class::lift_class() {
   currentPosition[0] = '\0';                 // Make the currentPosition an empty string
   level = 0;                                 // Assume we start at Level 0
   // We start the liftpositions array at the end of the EEPROM space
-  EpromStart = EEPROM.length() - ((MAX_LEVEL + 1) * NUMBER_LENGHT) - 1;
+  EpromStart = EEPROM.length() - (MAX_LEVEL * NUMBER_LENGHT) - 1;
   // Determine the EEPROM address of each inidividual lift position
-  for (uint8_t i=0; i < (MAX_LEVEL + 1); i++) 
+  for (uint8_t i=0; i < MAX_LEVEL; i++) 
     EpromLevel[i] = EpromStart + (i * NUMBER_LENGHT);
   // Check the character before the lift positions to determine if we are initialised.
-  if (EEPROM.read(EpromStart - 1) != 0b01010101) {
-    // No, we are not initialised. Set default values, to avoid all values being FF (255)
-    strcpy(lift.positions[0],  "0.000");
-    strcpy(lift.positions[1],  "170.900");
-    strcpy(lift.positions[2],  "251.000");
-    strcpy(lift.positions[3],  "331.900");
-    strcpy(lift.positions[4],  "412.200");
-    strcpy(lift.positions[5],  "503.000");
-    strcpy(lift.positions[6],  "595.000");
-    strcpy(lift.positions[7],  "686.100");
-    strcpy(lift.positions[8],  "778.200");
-    strcpy(lift.positions[9],  "869.300");
-    strcpy(lift.positions[10], "960.600");
+  if ((EEPROM.read(EpromStart - 1) != 0b01010101) || (FORCE_EEPROM_WRITE)) {
+    // No, we are not initialised . Set default values, to avoid all values being FF (255)
+    strcpy(lift.positions[0], LEVEL00);
+    strcpy(lift.positions[1], LEVEL01);
+    strcpy(lift.positions[2], LEVEL02);
+    strcpy(lift.positions[3], LEVEL03);
+    strcpy(lift.positions[4], LEVEL04);
+    strcpy(lift.positions[5], LEVEL05);
+    strcpy(lift.positions[6], LEVEL06);
+    strcpy(lift.positions[7], LEVEL07);
+    strcpy(lift.positions[8], LEVEL08);
+    strcpy(lift.positions[9], LEVEL09);
+    strcpy(lift.positions[10], LEVEL10);
+    strcpy(lift.positions[11], LEVEL11);
     // Now that we have defaults, store these in the EEPROM
-    for (uint8_t i=0; i < (MAX_LEVEL + 1); i++) 
+    for (uint8_t i=0; i < MAX_LEVEL; i++) 
       EEPROM.put(EpromLevel[i], lift.positions[i]);
     // And set the character before the lift positions, to avoid re-initialisation.
     EEPROM.update(EpromStart - 1, 0b01010101);
   }
   else { // We are initialised. Retrieve values from EEPROM
-    for (uint8_t i=0; i < (MAX_LEVEL + 1); i++) 
+    for (uint8_t i=0; i < MAX_LEVEL; i++) 
       EEPROM.get(EpromLevel[i], lift.positions[i]);
   }
 }
@@ -122,7 +124,7 @@ void grbl::parse_grbl_input() {
   // we inform the main program.
   if (Serial2.available()) {
     char inByte = Serial2.read ();
-    if (cvValues.read(Serial_Line > 1)) Serial.write(inByte);
+    if (cvValues.read(Serial_Line) > 1) Serial.write(inByte);
     switch (parseState) {
       case Skip:
         // In this state we ignore everything, except the start of a new line
