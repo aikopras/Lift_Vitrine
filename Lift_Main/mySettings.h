@@ -85,7 +85,7 @@ Purpose:   Allow users of this sketch to select the board (SMD or THT) and tailo
 // Once the EEPROM is initialised, values will not be written to EEPROM again, even if you make changes 
 // here. Later changes regarding lift positions should be made via the buttons. In case you don't have
 // buttons (since the lift is operated via DCC only), you can enable FORCE_EEPROM_WRITE (see below).
-// After thes values are stored in EEPROM, do NOT modify the values again!!
+// After these values are stored in EEPROM, do NOT modify the values again!!
 // Values are in millimeter (point as decimal separator).
 /*
 #define LEVEL00      "0.000"
