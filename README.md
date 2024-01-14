@@ -1,9 +1,7 @@
-# <a name="Loklift decoders"></a>Software for the Loklift decoders #
+# <a name="Loklift decoders"></a>Decoders and Software for a modeltrain lift (elevator, fiddleyard) #
 
-This is the software for the three (ATMega 2560) decoders that control the lift for model trains. The photo below shows the lift at the right, and the display case (vitrine) at the left. On [YouTube](https://youtube.com/playlist?list=PLT8t59Iv1uii5TKU-r4GmLXoBTifbTNtb) there are a couple of videos that show the lift in motion.
-![Photo lift](extras/Pictures/Lift.jpeg)
+This software allows you to control a modeltrain lift (elevator, fiddleyard). The photo below shows the lift at the right, and the display case (vitrine) at the left; if you click on the photo you'll see the lift in action (YouTube video). You'll find additional videaos on [YouTube](https://youtube.com/playlist?list=PLT8t59Iv1uii5TKU-r4GmLXoBTifbTNtb).
 
-## TEST ##
 [<img src="extras/Pictures/Lift.jpeg">](https://youtu.be/MswR5I-5q1c?si=-zvIIBghLZpLA2uD)
 
 ## Overall structure ##
