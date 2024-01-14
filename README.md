@@ -3,12 +3,17 @@
 This is the software for the three (ATMega 2560) decoders that control the lift for model trains. The photo below shows the lift at the right, and the display case (vitrine) at the left. On [YouTube](https://youtube.com/playlist?list=PLT8t59Iv1uii5TKU-r4GmLXoBTifbTNtb) there are a couple of videos that show the lift in motion.
 ![Photo lift](extras/Pictures/Lift.jpeg)
 
+## TEST ##
+[<img src="extras/Pictures/Lift.jpeg"](https://youtu.be/MswR5I-5q1c?si=-zvIIBghLZpLA2uD)
+
 ## Overall structure ##
 The software consists of three parts:
 - **Main controller**: The Main controller interfaces via the GRBL controller to the stepper motors that move the lift. The Main controller listens to DCC accessory commands that tell the lift to move to a certain level of the display case. The Main controller also sends RS-Bus feedback messages, to tell the current lift level whether the lift is moving, and if the IR-sensors, which monitor the passage between the lift and display case, indicate that no train blocks that passage. In addition (not shown in the figure below), the Main Controller listens to a serial interface to allow manual / debug operations, and connects to a LCD display that shows status information.
 - **Button controller**: The Button controller connects to the buttons that allow manual movement of the lift.  
 - **IR controller**: The Button controller connects to the IR-LEDs and sensors that monitor if the passage between lift and display case is occupied by some train, or free.
 ![Overview](extras/Pictures/Overview.png)
+
+If you don't want manual operation, you do not need to connect the Button Controller board. If you don't want protection via IR-sensors, you do not need to connect the IR Controller board
 
 
 ## RS-485 Interface ##
