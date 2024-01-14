@@ -4,7 +4,7 @@ This is the software for the three (ATMega 2560) decoders that control the lift 
 ![Photo lift](extras/Pictures/Lift.jpeg)
 
 ## TEST ##
-[<img src="extras/Pictures/Lift.jpeg"](https://youtu.be/MswR5I-5q1c?si=-zvIIBghLZpLA2uD)
+[<img src="extras/Pictures/Lift.jpeg">](https://youtu.be/MswR5I-5q1c?si=-zvIIBghLZpLA2uD)
 
 ## Overall structure ##
 The software consists of three parts:
