@@ -1,12 +1,13 @@
 //******************************************************************************************************
 //
-// Test sketch for the Lift decoder board
-// To check communication between the main processor (MEGA2560) and GRBL processor (MEGA 328)
-// To check to stepper driver and motor
+// Test sketch for the Lift Decoder board
+// To check communication between the main processor (MEGA 2560) and GRBL processor (MEGA 328)
+// To configure GRBL variables and check the stepper driver(s) and motor(s)
 // 
-// The USB-UART converter (monitor) is connected to serial 0, baudrate should be 115200
-// Note that not all USB to Serial connectors are reliable.
-// The MEGA328 runnung GRBL is connected to serial 2, baudrate is also 115200
+// The connector on the Lift Decoder board labelled Monitor 2560 should be connected to a Serial to USB
+// connector, which in turn connects to the PC/Mac running the Raduino IDE.
+// Note that not all USB to Serial connectors turned out to operate reliable.
+// The baudrate is 115200.
 //
 // Type on the Arduino serial monitor program the following commands:
 // - $$ = view settings
@@ -23,7 +24,7 @@
 void setup() {
   // Turn on the LED
   pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  digitalWrite(LED_BUILTIN, HIGH);
   // initialize serial:
   Serial.begin(115200);    // Monitor = USB UART-USB converter
   Serial2.begin(115200);   // GRBL - MEGA 328 
