@@ -66,7 +66,8 @@ Feedback is provided in two ways.
  - Base address + 1: Lift is at level x        (high nibble          Bit 5)
  - Base address + 1: Lift Ready                (high nibble          Bit 7)
 2. Using the connectors on the Main Lift Board connectors (added in V2.0).<BR>
-Its purpose is to facilitate the use of alternative feedback systems (such as S88).
+Its purpose is to facilitate the use of alternative feedback systems. Although not tested, it is expected to work with other feedback interfaces, such as the LDT RM-88-N-O, the YaMoRC YD6016LN-OPTO and YD6016ES-OPTO, Uhlenbrock 63330 etc.
+
   - The connectors labelled "IN 1..12" are used to tell which level the lift currently is.
   The connector labelled "1" is for level "0", etc.
   - The connector labelled "IN 13" is used to tell that IR-sensors are free.
