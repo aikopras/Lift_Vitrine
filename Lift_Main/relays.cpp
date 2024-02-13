@@ -3,6 +3,7 @@ File:      relays.cpp
 Author:    Aiko Pras
 History:   2022/05/22 AP Version 1.0
            2024/01/11 AP version 1.1: relay pins are defined in mySettings
+           2024/02/13 AP Version 1.2: Bug corrected that prevented the correct operation of relays
 
 Purpose:   Implements the objects to control external relaays
 
@@ -13,10 +14,10 @@ Purpose:   Implements the objects to control external relaays
 
 #define HOLD_TIME 3                  // 3 * 20ms = 60ms
 
-// Instantiate some objects. 
-relaysController  relaysCntrl;       // Used by the main sketch
+// Instantiate some objects. The relays MUST be instantiated BEFORE the relaysController
 relayClass relay1;                   // First relay
 relayClass relay2;                   // Second relay
+relaysController  relaysCntrl;       // Used by the main sketch
 
 
 //*****************************************************************************************************
